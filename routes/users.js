@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 const router = express.Router();
 
 //mock database
-const users = [];
+let users = [];
 
 //init router ( all routes here are starting with "/users" ("/"))
 router.get("/", (req, res) => {
@@ -38,5 +38,10 @@ router.get("/:id", (req, res) => {
 //deleting users
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
+
+  users = users.filter((user) => user.id !== id);
+
+  res.send(`user with id "${id} has been deleted!!`);
 });
+
 export default router;
