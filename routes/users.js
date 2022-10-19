@@ -1,5 +1,5 @@
-import e from "express";
 import express from "express";
+
 import { v4 as uuidv4 } from "uuid";
 
 //import router
@@ -42,6 +42,28 @@ router.delete("/:id", (req, res) => {
   users = users.filter((user) => user.id !== id);
 
   res.send(`user with id "${id} has been deleted!!`);
+});
+
+//update a user
+router.patch("/:id", (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName, age } = req.body;
+
+  //finding the user to be updated
+  const user = users.find((user) => user.id === id);
+
+  //checking to see which data needs to be updated
+  if (firstName) {
+    user.firstName = firstName;
+  }
+  if (lastName) {
+    user.lastName = lastName;
+  }
+  if (age) {
+    user.age = age;
+  }
+
+  res.send(`user with the id "${id}" has been updated!!!`);
 });
 
 export default router;
